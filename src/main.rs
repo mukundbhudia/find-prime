@@ -28,19 +28,23 @@ fn find_r_and_d(i: BigUint) -> (u64, BigUint) {
 }
 
 fn might_be_prime(n: &BigUint) -> bool {
-    let nsub1 = n.sub(1u64.to_biguint().unwrap());
-    let two = 2u64.to_biguint().unwrap();
+    let one = BigUint::one();
+    let nsub1 = n - &one;
+    let two = BigUint::new(vec![2]);
+    let mut rng = rand::thread_rng();
 
-    let (r, d) = find_r_and_d(nsub1.clone());
+    let (r, mut d) = find_r_and_d(nsub1.clone());
+    let mut x;
+    let mut a: BigUint;
     'WitnessLoop: for kk in 0..6u64 {
-        let a = rand::thread_rng().gen_biguint_range(&two, &nsub1);
-        let mut x = mod_exp(&a, &d, &n);
-        if x == 1u64.to_biguint().unwrap() || x == nsub1 {
+        a = rng.gen_biguint_range(&two, &nsub1);
+        x = mod_exp(&mut a, &mut d, &n);
+        if &x == &one || x == nsub1 {
             continue;
         }
         for rr in 1..r {
-            x = x.clone().mul(x.clone()).rem(n);
-            if x == 1u64.to_biguint().unwrap() {
+            x = (&x * &x) % n;
+            if &x == &one {
                 return false;
             } else if x == nsub1 {
                 continue 'WitnessLoop;
@@ -48,23 +52,22 @@ fn might_be_prime(n: &BigUint) -> bool {
         }
         return false;
     }
-    return true;
+    true
 }
 
-fn mod_exp(base: &BigUint, exponent: &BigUint, modulus: &BigUint) -> BigUint {
-    let one = 1u64.to_biguint().unwrap();
-    let mut result = one.clone();
-    let mut base_clone = base.clone();
-    let mut exponent_clone = exponent.clone();
+fn mod_exp(base: &mut BigUint, exponent: &mut BigUint, modulus: &BigUint) -> BigUint {
+    let one = BigUint::one();
+    let zero = BigUint::zero();
+    let mut result = BigUint::one();
 
-    while exponent_clone > 0u64.to_biguint().unwrap() {
-        if exponent_clone.clone() & one.clone() == one {
-            result = result.mul(&base_clone).rem(modulus);
-        } 
-        base_clone = base_clone.clone().mul(base_clone).rem(modulus);
-        exponent_clone = exponent_clone.shr(1usize);
+    while &*exponent > &zero {
+        if &*exponent & &one == one {
+           result = (result * &*base) % modulus;
+        }
+        *base = (&*base * &*base) % modulus;
+        *exponent = &*exponent >> 1usize;
     }
-    return result;
+    result
 }
 
 fn main() {  

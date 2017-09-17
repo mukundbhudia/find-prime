@@ -73,10 +73,12 @@ fn mod_exp(base: &mut BigUint, exponent: &mut BigUint, modulus: &BigUint) -> Big
 fn main() {  
     let now1 = now();
 
-    for n in 774541u64..18446744073709551615u64 {
-        let b = n.to_biguint().unwrap();
+    let mut b = "4547337172376300111955330758342147474062293202868178163459".parse::<BigUint>().unwrap();
+    while true {
+        let one = BigUint::one();
+        b = b + (&one + &one);
         if might_be_prime(&b) {
-            println!("{}", n);
+            println!("{}", b);
         }
     }
 

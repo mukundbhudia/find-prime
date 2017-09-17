@@ -5,3 +5,5 @@ authors = ["Mukund Bhudia <mukund_bhudia@hotmail.com>"]
 
 [dependencies]
 num = "0.1.40"
+rand = "0.3.16"
+time = "0.1.38"

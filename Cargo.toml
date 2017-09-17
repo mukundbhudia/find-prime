@@ -1,0 +1,6 @@
+[package]
+name = "rusty-prime"
+version = "0.1.0"
+authors = ["Mukund Bhudia <mukund_bhudia@hotmail.com>"]
+
+[dependencies]

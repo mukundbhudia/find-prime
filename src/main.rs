@@ -73,7 +73,7 @@ fn mod_exp(base: &mut BigUint, exponent: &mut BigUint, modulus: &BigUint) -> Big
 fn main() {  
     let now1 = now();
 
-    let mut b = "4547337172376300111955330758342147474062293202868178163459".parse::<BigUint>().unwrap();
+    let mut b = "3644156651806149735145554752510739718312305395535692520361243243621494715240964000096007396464293664302720098339200581682956734880917676321024312391836481599463".parse::<BigUint>().unwrap();
     while true {
         let one = BigUint::one();
         b = b + (&one + &one);

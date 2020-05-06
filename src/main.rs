@@ -4,6 +4,7 @@ extern crate core;
 extern crate time;
 
 use std::time::{Duration};
+use::std::io::Write;
 use time::{now, Tm};
 
 use rand::Rng;
@@ -70,18 +71,39 @@ fn mod_exp(base: &mut BigUint, exponent: &mut BigUint, modulus: &BigUint) -> Big
     result
 }
 
-fn main() {  
+fn main() {
+    let args: Vec<String> = std::env::args().collect();
+
+    if args.len() != 3 {
+        writeln!(std::io::stderr(), "Usage: rusty-prime START MAX_PRIMES_TO_FIND").unwrap();
+        writeln!(std::io::stderr(), "Example: {} 17 5. Will find 5 more primes after 17.", args[0]).unwrap();
+        std::process::exit(1);
+    }
+
+    let start_prime = &args[1];
+    let max_primes_to_find = &args[2];
+
+    if start_prime == "1" {
+        writeln!(std::io::stderr(), "Please use a larger start prime than {}.", start_prime).unwrap();
+        std::process::exit(1);
+    }
+
+    println!("Starting with {} and finding {} more primes.", start_prime, max_primes_to_find);
+
     let now1 = now();
 
-    let mut b = "3644156651806149735145554752510739718312305395535692520361243243621494715240964000096007396464293664302720098339200581682956734880917676321024312391836481599463".parse::<BigUint>().unwrap();
-    while true {
+    // let mut b = "3644156651806149735145554752510739718312305395535692520361243243621494715240964000096007396464293664302720098339200581682956734880917676321024312391836481599463".parse::<BigUint>().unwrap();
+    let mut b = start_prime.parse::<BigUint>().unwrap();
+    let mut i = 0;
+    while i < max_primes_to_find.parse::<i32>().unwrap() {
         let one = BigUint::one();
         b = b + (&one + &one);
         if might_be_prime(&b) {
+            i += 1;
             println!("{}", b);
         }
     }
 
     let now2 = now();
-    println!("{}", now2.to_timespec().sec - now1.to_timespec().sec);
+    println!("Found {} primes in {} seconds.", i, now2.to_timespec().sec - now1.to_timespec().sec);
 }  

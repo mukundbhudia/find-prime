@@ -1,5 +1,5 @@
 [package]
-name = "rusty-prime"
+name = "find-prime"
 version = "0.1.0"
 authors = ["Mukund Bhudia <mukund_bhudia@hotmail.com>"]
 

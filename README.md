@@ -3,9 +3,15 @@
 Generates prime numbers using Miller-Rabin probabilistic primality test.
 Written in Rust.
 
+## Develepment
+
+* Within the repo directory run `cargo run START_PRIME MAX_PRIMES_TO_FIND` where `START_PRIME` is your initial prime number to start the primality tests and `MAX_PRIMES_TO_FIND` is how many primes you'd like to find after your start prime.
+
+* To make a production build, within the repo directory run `cargo build --release`.
+
 ## Usage
 
-Within the repo directory run `target/release/rusty-prime START_PRIME MAX_PRIMES_TO_FIND` where `START_PRIME` is your initial prime number to start the primality tests and `MAX_PRIMES_TO_FIND` is how many primes you'd like to find after your start prime.
+Once a production release has been built (see Develepment), within the repo directory run `cargo run START_PRIME MAX_PRIMES_TO_FIND` (with arguments just like in the Develepment section).
 
 ### Small example
 
@@ -74,3 +80,5 @@ sys	0m0.224s
 
 ### Resources
 * Heavily borrowed from https://stackoverflow.com/questions/35423277/is-the-big-integer-implementation-in-the-num-crate-slow.
+
+* Useful primality checker: https://www.alpertron.com.ar/ECM.HTM from [alpertron](https://github.com/alpertron). Enter your prime candidate and click 'Factor'

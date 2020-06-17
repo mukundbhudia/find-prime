@@ -3,7 +3,7 @@
 Generates prime numbers using Miller-Rabin probabilistic primality test.
 Written in Rust.
 
-## Develepment
+## Development
 
 * Within the repo directory run `cargo run START_PRIME MAX_PRIMES_TO_FIND` where `START_PRIME` is your initial prime number to start the primality tests and `MAX_PRIMES_TO_FIND` is how many primes you'd like to find after your start prime.
 
@@ -11,7 +11,7 @@ Written in Rust.
 
 ## Usage
 
-Once a production release has been built (see Develepment), within the repo directory run `cargo run START_PRIME MAX_PRIMES_TO_FIND` (with arguments just like in the Develepment section).
+Once a production release has been built (see Development), within the repo directory run `cargo run START_PRIME MAX_PRIMES_TO_FIND` (with arguments just like in the Development section).
 
 ### Small example
 
@@ -43,7 +43,7 @@ Found 20 primes in 0 seconds.
 
 ### Medium example
 
-Or for a more challanging computation, try `rusty-prime 6864797660130609714981900799081393217269435300143305409394463459185543183397656052122559640661454554977296311391480858037121987999716643812574028291115057151 5` would generate:
+Or for a more challenging computation, try `rusty-prime 6864797660130609714981900799081393217269435300143305409394463459185543183397656052122559640661454554977296311391480858037121987999716643812574028291115057151 5` would generate:
 ```rust
 Starting with 6864797660130609714981900799081393217269435300143305409394463459185543183397656052122559640661454554977296311391480858037121987999716643812574028291115057151 and finding 5 more primes.
 6864797660130609714981900799081393217269435300143305409394463459185543183397656052122559640661454554977296311391480858037121987999716643812574028291115058039

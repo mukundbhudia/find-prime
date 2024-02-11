@@ -1,14 +1,14 @@
-extern crate rand;
-extern crate num;
 extern crate core;
+extern crate num;
+extern crate rand;
 extern crate time;
 
-use::std::io::Write;
-use time::{now};
+use std::io::Write;
+use time::now;
 
-use num::{Zero, One};
-use num::bigint::{RandBigInt, BigUint, ToBigUint};
 use core::ops::{Rem, Shr};
+use num::bigint::{BigUint, RandBigInt, ToBigUint};
+use num::{One, Zero};
 
 fn find_r_and_d(i: BigUint) -> (u64, BigUint) {
     let mut d = i;
@@ -45,7 +45,7 @@ fn might_be_prime(n: &BigUint) -> bool {
                 return false;
             } else if x == nsub1 {
                 continue 'WitnessLoop;
-            } 
+            }
         }
         return false;
     }
@@ -59,7 +59,7 @@ fn mod_exp(base: &mut BigUint, exponent: &mut BigUint, modulus: &BigUint) -> Big
 
     while &*exponent > &zero {
         if &*exponent & &one == one {
-           result = (result * &*base) % modulus;
+            result = (result * &*base) % modulus;
         }
         *base = (&*base * &*base) % modulus;
         *exponent = &*exponent >> 1usize;
@@ -71,8 +71,17 @@ fn main() {
     let args: Vec<String> = std::env::args().collect();
 
     if args.len() != 3 {
-        writeln!(std::io::stderr(), "Usage: rusty-prime START MAX_PRIMES_TO_FIND").unwrap();
-        writeln!(std::io::stderr(), "Example: {} 17 5. Will find 5 more primes after 17.", args[0]).unwrap();
+        writeln!(
+            std::io::stderr(),
+            "Usage: rusty-prime START MAX_PRIMES_TO_FIND"
+        )
+        .unwrap();
+        writeln!(
+            std::io::stderr(),
+            "Example: {} 17 5. Will find 5 more primes after 17.",
+            args[0]
+        )
+        .unwrap();
         std::process::exit(1);
     }
 
@@ -80,11 +89,19 @@ fn main() {
     let max_primes_to_find = &args[2];
 
     if start_prime == "1" {
-        writeln!(std::io::stderr(), "Please use a larger start prime than {}.", start_prime).unwrap();
+        writeln!(
+            std::io::stderr(),
+            "Please use a larger start prime than {}.",
+            start_prime
+        )
+        .unwrap();
         std::process::exit(1);
     }
 
-    println!("Starting with {} and finding {} more primes.", start_prime, max_primes_to_find);
+    println!(
+        "Starting with {} and finding {} more primes.",
+        start_prime, max_primes_to_find
+    );
 
     let now1 = now();
     let mut i = 0;
@@ -98,7 +115,7 @@ fn main() {
                     i += 1;
                     println!("{}", b);
                 }
-            }       
+            }
         } else {
             println!("Maximum prime to find must be a valid integer");
         }
@@ -107,5 +124,9 @@ fn main() {
     }
 
     let now2 = now();
-    println!("Found {} primes in {} seconds.", i, now2.to_timespec().sec - now1.to_timespec().sec);
-}  
+    println!(
+        "Found {} primes in {} seconds.",
+        i,
+        now2.to_timespec().sec - now1.to_timespec().sec
+    );
+}
